@@ -16,4 +16,5 @@ jobs:
 
       - name: Build the documentation
         run: |
-          docker run --rm -it -v "${PWD}":"/docs" squidfunk/mkdocs-material build
+          docker run --rm  -v "${PWD}:/docs" squidfunk/mkdocs-material build -d build/site
+          
