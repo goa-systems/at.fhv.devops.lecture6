@@ -30,7 +30,7 @@ jobs:
           docker run --name mydoc -d --restart always -p 8081:80 my-documentation
       - name: Test the container
         run: |
-          docker run --name integrationtest --network host --rm -v "${PWD}/integrationtest.sh:/integrationtest.sh:ro" alpine/curl bash /integrationtest.sh
+          docker run --name integrationtest --network host --rm -v "${PWD}/integrationtest.sh:/integrationtest.sh:ro" ellerbrock/alpine-bash-curl-ssl bash /integrationtest.sh
       - name: Clean the container in any case
         if: always()
         run: |
