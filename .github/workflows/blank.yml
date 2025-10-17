@@ -32,8 +32,7 @@ jobs:
         run: |
           sleep 2
           PC=$(curl -s http://127.0.0.1:8081)
-          echo "${PC}"
-          if [[ "${PC}" = *"Material for MkDocs"* ]]
+          if [[ "${PC}" = *"Material for MkDo123"* ]]
           then
             exit 0
           else
