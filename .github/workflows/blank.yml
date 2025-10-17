@@ -18,4 +18,8 @@ jobs:
         run: |
           docker run --rm -u "$(id -u):$(id -g)" -v "${PWD}:/docs" squidfunk/mkdocs-material build -d build/site
           ls -al
-          
+      - name: Create the container
+        run: |
+          docker image rm my-documentation || true
+          docker build -f Dockerfile.nginx -t my-documentation .
+          docker image ls --all
