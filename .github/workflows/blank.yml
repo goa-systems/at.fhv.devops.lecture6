@@ -31,7 +31,13 @@ jobs:
       - name: Test the container
         run: |
           PC=$(curl -s http://127.0.0.1:8081)
-          if [[ "${PC}" = *"Material for MkDocs"* ]]; then exit 0; else exit 1; fi
+          echo "${PC}"
+          if [[ "${PC}" = *"Material for MkDocs"* ]]
+          then
+            exit 0
+          else
+            exit 1
+          fi
       - name: Stop the container
         run: |
           docker container stop mydoc || true
