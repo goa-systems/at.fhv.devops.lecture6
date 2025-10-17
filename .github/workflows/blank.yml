@@ -33,9 +33,9 @@ jobs:
           # Build the documentation image
           docker build -f Dockerfile.nginx -t my-documentation .
           docker image ls --all
-      - name: Run the container
+      - name: Run the documentation container
         run: |
-          # Just to be safe: Remove eventually existing containers.
+          # Just to be safe: Stop and remove eventually existing containers.
           docker container stop mydoc || true
           docker container rm mydoc || true
 
