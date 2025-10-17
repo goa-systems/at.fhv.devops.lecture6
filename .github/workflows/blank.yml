@@ -16,20 +16,29 @@ jobs:
 
       - name: Build the documentation
         run: |
+          # Build the static html page into the folder "build/site"
           docker run --rm -u "$(id -u):$(id -g)" -v "${PWD}:/docs" squidfunk/mkdocs-material build -d build/site
+          # List the contents of the project folder
           ls -al
       - name: Create the container
         run: |
+          # Just to be safe: Remove eventually existing images.
           docker image rm my-documentation || true
+
+          # Build the documentation image
           docker build -f Dockerfile.nginx -t my-documentation .
           docker image ls --all
       - name: Run the container
         run: |
+          # Just to be safe: Remove eventually existing containers.
           docker container stop mydoc || true
           docker container rm mydoc || true
+
+          # Run the documentation image on the build agent.
           docker run --name mydoc -d --restart always -p 8081:80 my-documentation
       - name: Test the container
         run: |
+          # Run the integration test from the file "integrationtest.sh" against the running documentation image.
           docker run --name integrationtest --network host --rm -v "${PWD}/integrationtest.sh:/integrationtest.sh:ro" ellerbrock/alpine-bash-curl-ssl bash /integrationtest.sh
       - name: Clean the container in any case
         if: always()
