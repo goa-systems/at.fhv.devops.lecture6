@@ -23,3 +23,12 @@ jobs:
           docker image rm my-documentation || true
           docker build -f Dockerfile.nginx -t my-documentation .
           docker image ls --all
+      - name: Run the container
+        run: |
+          docker container stop mydoc || true
+          docker container rm mydoc || true
+          docker run --name mydoc -d --restart always -p 8081:80 my-documentation
+          sleep 2
+          curl -s http://127.0.0.1:8081
+          docker container stop mydoc || true
+          docker container rm mydoc || true
