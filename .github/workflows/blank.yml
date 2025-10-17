@@ -31,7 +31,7 @@ jobs:
       - name: Test the container
         run: |
           PC=$(curl -s http://127.0.0.1:8081)
-          docker run --name integrationtest --rm -v "${PWD}/integrationtest.sh:/integrationtest.sh:ro" bash bash /integrationtest.sh
+          docker run --name integrationtest --network host --rm -v "${PWD}/integrationtest.sh:/integrationtest.sh:ro" bash bash /integrationtest.sh
       - name: Clean the container in any case
         if: always()
         run: |
