@@ -30,6 +30,6 @@ jobs:
           docker run --name mydoc -d --restart always -p 8081:80 my-documentation
           sleep 2
           PC=$(curl -s http://127.0.0.1:8081)
-          [[ "${PC}" = *"Material for MkDoc123"* ]] && echo "Found it :)"
+          if [[ "${PC}" = *"Material for MkDoc123"* ]]; then exit 0; else exit 1; fi
           docker container stop mydoc || true
           docker container rm mydoc || true
