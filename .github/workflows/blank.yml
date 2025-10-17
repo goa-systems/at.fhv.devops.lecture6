@@ -38,7 +38,8 @@ jobs:
           else
             exit 1
           fi
-      - name: Stop the container
+      - name: Clean the container in any case
+        if: always()
         run: |
           docker container stop mydoc || true
           docker container rm mydoc || true
