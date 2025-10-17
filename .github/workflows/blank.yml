@@ -28,10 +28,6 @@ jobs:
           docker container stop mydoc || true
           docker container rm mydoc || true
           docker run --name mydoc -d --restart always -p 8081:80 my-documentation
-          PC=$(curl -s http://127.0.0.1:8081)
-          if [[ "${PC}" = *"Material for MkDocs"* ]]; then exit 0; else exit 1; fi
-          docker container stop mydoc || true
-          docker container rm mydoc || true
       - name: Test the container
         run: |
           PC=$(curl -s http://127.0.0.1:8081)
